@@ -4,22 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:indexBox="clr-namespace:IndexBox"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow"
         Width="525"
         Height="350"
         d:DataContext="{d:DesignInstance indexBox:Vm}"
         mc:Ignorable="d">
-    <Window.DataContext>
-        <indexBox:Vm />
-    </Window.DataContext>
     <Grid>
-        <ListBox ItemsSource="{Binding Items}">
-            <ListBox.ItemTemplate>
+        <ItemsControl>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="indexBox:Index.In" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=(indexBox:Index.Of)}" 
-                               indexBox:Index.In="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=(indexBox:Index.Of), RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}}" />
+                    </StackPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+            <system:String>dummy1</system:String>
+            <system:String>dummy2</system:String>
+            <system:String>dummy3</system:String>
+            <system:String>dummy4</system:String>
+            <!--  placeholders for items ^  -->
+        </ItemsControl>
     </Grid>
 </Window>
